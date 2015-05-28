@@ -14,6 +14,7 @@ router.get('/create', function(req, res, next) {
   res.render('users/create', vm);
 });
 
+
 router.post('/create', function(req, res, next) {
   var somethingGoesWrong = false;
   if (somethingGoesWrong) {
