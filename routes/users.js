@@ -15,7 +15,7 @@ router.get('/create', function(req, res, next) {
 });
 
 router.post('/create', function(req, res, next) {
-  var somethingGoesWrong = true;
+  var somethingGoesWrong = false;
   if (somethingGoesWrong) {
     var vm = {
       title: 'Create an account',
