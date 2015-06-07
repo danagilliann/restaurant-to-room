@@ -1,5 +1,6 @@
 var ordrx = require('ordrin-api');
 var config = require('../config');
+var Order = require('../models/order').Order;
 
 var api = new ordrx.APIs(config.ordrxKey, ordrx.TEST);
 
@@ -29,5 +30,18 @@ exports.getRestaurantDetails = function(restId, next) {
       console.log(err);
     }
     next(err, details);
-  })
+  });
+}
+
+exports.createOrder = function(user, food, next) {
+  var order = new Order({
+    user: user,
+    food: food
+  });
+  order.save(function(err, savedOrder) {
+    if (!err) {
+      return next(null, savedOrder._id)
+    }
+    next(err);
+  });
 }

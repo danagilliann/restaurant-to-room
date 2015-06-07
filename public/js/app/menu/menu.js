@@ -7,7 +7,7 @@
         
     MenuController.$inject = ['api', '$routeParams', 'ngDialog', '$scope', '$location'];
     
-    function MenuController(api, $routeParams, ngDialog, $scope) {
+    function MenuController(api, $routeParams, ngDialog, $scope, $location) {
         var vm = this;
         
         vm.items = []
@@ -59,6 +59,18 @@
         };
         
         vm.checkout = function() {
+            var food = {
+                restId: $routeParams.restId,
+                restName: vm.restaurant.name,
+                items: vm.items
+            };
+            api.createOrder(food)
+                .then(function(data) {
+                    if (data.success) {
+                        return $location.url('/payment');
+                    }
+                    alert('Something went wrong...');
+                });
             $location.url('/payment');
         };
     }

@@ -30,4 +30,14 @@ router.get('/api/restaurant-details/:restId', function(req, res, next) {
     })
 });
 
+router.post('/api/create-order', restrict, function(req, res, next) {
+    orderService.createOrder(req.user._doc, req.body, function(err, orderId) {
+        if (err) {
+            return res.status(500).json({error: "Failed to create order"});
+        }
+        req.session.order_id = orderId;
+        res.json({success: true});
+    });
+});
+
 module.exports = router;
